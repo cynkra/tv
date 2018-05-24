@@ -2,11 +2,13 @@ Package: tv
 Title: Tibble View: Graphical Display For Data Frame Output
 Version: 0.0-0
 Authors@R: c(
-    person("Kirill", "Müller", role = c("aut", "cre"), email = "krlmlr+r@mailbox.org", comment = c(ORCID = "0000-0002-1416-3412"),
+    person("Kirill", "Müller", role = c("aut", "cre"), email = "krlmlr+r@mailbox.org", comment = c(ORCID = "0000-0002-1416-3412")),
     person("Christoph", "Sax", role = c("aut"))
     )
 Description: Overrides the print method for data frames and tibbles
     to provide a graphical output for rectangular data.
+Imports:
+    tibble
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -14,3 +16,4 @@ Date: 2018-05-24
 BugReports: https://github.com/krlmlr/tv/issues
 URL: https://github.com/krlmlr/tv, http://krlmlr.github.io/tv
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1.9000
