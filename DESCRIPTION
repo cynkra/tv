@@ -3,7 +3,8 @@ Title: Tibble View: Graphical Display For Data Frame Output
 Version: 0.0-0
 Authors@R: c(
     person("Kirill", "Müller", role = c("aut", "cre"), email = "krlmlr+r@mailbox.org", comment = c(ORCID = "0000-0002-1416-3412")),
-    person("Christoph", "Sax", role = c("aut"))
+    person("Christoph", "Sax", role = c("aut")),
+    person("cynkra GmbH", role = c("fnd"))
     )
 Description: Overrides the print method for data frames and tibbles
     to provide a graphical output for rectangular data.
