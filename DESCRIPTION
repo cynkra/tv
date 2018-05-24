@@ -1,0 +1,13 @@
+Package: tv
+Title: What the Package Does (one line, title case)
+Version: 0.0-0
+Authors@R: person("Kirill", "Müller", role = c("aut", "cre"), email = "krlmlr+r@mailbox.org", comment = c(ORCID = "0000-0002-1416-3412"))
+Description: What the package does (one paragraph).
+Depends: R (>= 3.4.4)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Date: 2018-05-24
+BugReports: https://github.com/krlmlr/tv/issues
+URL: https://github.com/krlmlr/tv, http://krlmlr.github.io/tv
+Roxygen: list(markdown = TRUE)
