@@ -1,20 +1,20 @@
 
 print_html.data.frame <- function(x, ...) {
   base:::print.data.frame(x)
-  print_html_df(x)
+  if (interactive()) print_html_df(x)
 }
 
 print_html.tbl <- function(x, ...) {
   tibble:::print.tbl(x)
-  print_html_df(x)
+  if (interactive()) print_html_df(x)
 }
 
 
 print_html_df <- function(x, ...) {
   print(rhandsontable::rhandsontable(
     limit_df(x),
-    readOnly = TRUE,
-    contextMenu = FALSE
+    readOnly = T,
+    contextMenu = F
   ))
 }
 
