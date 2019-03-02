@@ -1,29 +1,22 @@
-print_html.data.frame <- function(x, ...) {
 
+print_html.data.frame <- function(x, ...) {
+  base:::print.data.frame(x)
+  print_html_df(x)
+}
+
+print_html.tbl <- function(x, ...) {
+  tibble:::print.tbl(x)
+  print_html_df(x)
+}
+
+
+print_html_df <- function(x, ...) {
   print(rhandsontable::rhandsontable(
     limit_df(x),
     readOnly = TRUE,
     contextMenu = FALSE
   ))
-
-  # print(
-  #   hot_heatmap(
-  #     rhandsontable::rhandsontable(
-  #       limit_df(x),
-  #       readOnly = TRUE,
-  #       contextMenu = FALSE,
-  #     ),
-  #     color_scale = c("#af8dc3", "#7fbf7b")
-  #   )
-  # )
-
-
-  # we don't want to change default behavior
-  if (inherits(x, "tbl")) tibble:::print.tbl(x)
-  if (inherits(x, "data.frame")) base:::print.data.frame(x)
-
 }
-
 
 limit_df <- function (x) {
   tv.max.cells <- 1000

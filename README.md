@@ -14,3 +14,8 @@
 - [ ] disable non-interactively
 - [ ] easyly copy paste col names (that is a killer problem in tibbles that we should solve)
 
+
+### Nice to haves
+
+- store view. E.g., if you print as.data.frame(as.list(letters)), scroll to the right, call the same df again, it would be nice to be STILL at the end
+
