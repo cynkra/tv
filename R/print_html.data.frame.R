@@ -14,7 +14,8 @@ print_html_df <- function(x, ...) {
   print(rhandsontable::rhandsontable(
     limit_df(x),
     readOnly = T,
-    contextMenu = F
+    contextMenu = F,
+    height = "95vh"
   ))
 }
 
