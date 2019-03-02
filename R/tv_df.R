@@ -1,10 +1,22 @@
-tv_df <- function(x, ...) {
+print_html.data.frame <- function(x, ...) {
 
   print(rhandsontable::rhandsontable(
     limit_df(x),
     readOnly = TRUE,
     contextMenu = FALSE
   ))
+
+  # print(
+  #   hot_heatmap(
+  #     rhandsontable::rhandsontable(
+  #       limit_df(x),
+  #       readOnly = TRUE,
+  #       contextMenu = FALSE,
+  #     ),
+  #     color_scale = c("#af8dc3", "#7fbf7b")
+  #   )
+  # )
+
 
   # we don't want to change default behavior
   if (inherits(x, "tbl")) tibble:::print.tbl(x)
