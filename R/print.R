@@ -1,5 +1,5 @@
 print_tv <- function(x, ...) {
-  
+
   tv.max.cells <- 1000
   tv.max.rows <- 1000
   tv.max.cols <- 500
@@ -9,6 +9,7 @@ print_tv <- function(x, ...) {
 
   stopifnot(tv.max.cells <= tv.max.rows * tv.max.cols)
 
+  z <- x
   if (nrow(x) * ncol(x) > tv.max.cells) {
     message("tv: tibble has more than ", tv.max.cells, " cells. Output truncated.")
     rows <- min(nrow(x), tv.max.rows)
@@ -20,13 +21,17 @@ print_tv <- function(x, ...) {
       cols <- floor(tv.max.cells / rows)
     }
 
-    x <- x[seq(rows), seq(cols)]
+    z <- x[seq(rows), seq(cols)]
   }
 
   print(rhandsontable::rhandsontable(
-    x, 
+    z,
     readOnly = TRUE,
     contextMenu = FALSE
-  )) 
-  invisible(x)
+  ))
+
+  # we don't want to change default behavior
+  if (inherits(x, "tbl")) tibble:::print.tbl(x)
+  if (inherits(x, "data.frame")) base:::print.data.frame(x)
+
 }
