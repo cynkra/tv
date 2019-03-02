@@ -1,5 +1,19 @@
 tv_df <- function(x, ...) {
 
+  print(rhandsontable::rhandsontable(
+    limit_df(x),
+    readOnly = TRUE,
+    contextMenu = FALSE
+  ))
+
+  # we don't want to change default behavior
+  if (inherits(x, "tbl")) tibble:::print.tbl(x)
+  if (inherits(x, "data.frame")) base:::print.data.frame(x)
+
+}
+
+
+limit_df <- function (x) {
   tv.max.cells <- 1000
   tv.max.rows <- 1000
   tv.max.cols <- 500
@@ -19,15 +33,5 @@ tv_df <- function(x, ...) {
     }
     z <- x[seq(rows), seq(cols)]
   }
-
-  print(rhandsontable::rhandsontable(
-    z,
-    readOnly = TRUE,
-    contextMenu = FALSE
-  ))
-
-  # we don't want to change default behavior
-  if (inherits(x, "tbl")) tibble:::print.tbl(x)
-  if (inherits(x, "data.frame")) base:::print.data.frame(x)
-
+  z
 }
