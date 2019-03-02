@@ -2,7 +2,7 @@
 NULL
 
 .onAttach <- function(...) {
-  tv_enable(verbose = TRUE)
+  on(verbose = TRUE)
 }
 
 register_s3_method <- function(pkg, generic, class, fun = NULL) {
