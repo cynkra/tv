@@ -8,19 +8,15 @@ print_tv <- function(x, ...) {
   tv.col.precedence <- TRUE
 
   stopifnot(tv.max.cells <= tv.max.rows * tv.max.cols)
-
   z <- x
   if (nrow(x) * ncol(x) > tv.max.cells) {
-    message("tv: tibble has more than ", tv.max.cells, " cells. Output truncated.")
     rows <- min(nrow(x), tv.max.rows)
     cols <- min(ncol(x), tv.max.cols)
-
     if (tv.col.precedence) {
       rows <- floor(tv.max.cells / cols)
     } else {
       cols <- floor(tv.max.cells / rows)
     }
-
     z <- x[seq(rows), seq(cols)]
   }
 
