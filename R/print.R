@@ -1,4 +1,4 @@
-print_tv <- function(x, ...) {
+tv_df <- function(x, ...) {
 
   tv.max.cells <- 1000
   tv.max.rows <- 1000
