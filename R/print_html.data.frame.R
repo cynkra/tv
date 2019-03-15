@@ -9,6 +9,10 @@ print_html.tbl <- function(x, ...) {
   print_html_df(x)
 }
 
+print_html.data.table <- function(x, ...) {
+  data.table:::print.data.table(x)
+  print_html_df(x)
+}
 
 print_html_df <- function(x, ...) {
   if (!interactive()) return(NULL)
