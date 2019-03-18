@@ -17,4 +17,4 @@ Date: 2018-05-24
 BugReports: https://github.com/krlmlr/tv/issues
 URL: https://github.com/krlmlr/tv, http://krlmlr.github.io/tv
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1
