@@ -4,6 +4,7 @@ NULL
 on <- function(verbose = FALSE) {
   register_s3_method("base", "print", "data.table", print_html)
   register_s3_method("base", "print", "tbl_df", print_html)
+  register_s3_method("base", "print", "tbl_lazy", print_html)
   register_s3_method("base", "print", "data.frame", print_html)
   register_s3_method("stats", "print", "ts", print_html)
   register_s3_method("xts", "print", "xts", print_html)

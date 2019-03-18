@@ -4,10 +4,16 @@ print_html.data.frame <- function(x, ...) {
   print_html_df(x)
 }
 
+print_html.tbl_lazy <- function(x, ...) {
+  print(collect(head(x, n = 50)))
+}
+
 print_html.tbl <- function(x, ...) {
   tibble:::print.tbl(x)
   print_html_df(x)
 }
+
+
 
 print_html.data.table <- function(x, ...) {
   data.table:::print.data.table(x)

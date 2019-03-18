@@ -1,0 +1,593 @@
+---
+title: cynkra R-Markdown Vorlage
+author: Christoph Sax
+date: '3\. Mai 2018'         # 1\. to avoid itemizing
+output: 
+  cynkradown::cynkra_handout:
+    latex_engine: xelatex    # required for Frutiger font
+fontsize: 10pt
+lang: ngerman                # ngerman, english, italian, french
+font: frutiger
+twocolumn: true
+wide: false
+colorlinks: true
+logo: true
+address_to: > 
+  Line 1
+  Line 2
+# toc: true
+numbersections: true
+abstract: > 
+  Dies ist eine Vorlage fuer ein- oder zwei-spaltige R-Markdown Dokumente im
+  tsbox Style. Das Dokument dient sowohl der Dokumentation als auch als Beispiel
+  für ein kompleres Dokument, das von zahlreichen Gestaltungselementen Gebrauch
+  macht.
+header-includes:
+  - \hyphenation{Fe-li-ci-tas}
+---
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+path_repo <- getOption("path_repo")
+
+knitr::opts_chunk$set(
+  fig.width  = 4,       # aspect ratio for time series, see below
+  fig.height = 3.5,
+  fig.pos    = "h",
+  cache      = FALSE,   # turn on in chunks that are computationally intensive
+  message    = FALSE,
+  echo       = FALSE,
+  tidy       = FALSE
+)
+
+# 2 col small:    4 x 3.5
+# 2 col wide:   8.5 x 3.38
+# 1 col:       7.25 x 3.5
+# beamer:         6 x 3.5
+
+# Frutiger in R
+# https://stackoverflow.com/questions/36453126/embedding-fonts-in-ggplot2-charts-in-rmarkdown-documents
+knitr::opts_chunk$set(dev = "cairo_pdf")
+
+library(extrafont)
+# on first run, fonts need to be imported
+# font_import(system.file(package = "cynkradown", "fonts"))
+# fonts()  # to see if it worked
+options(ts_font = "Frutiger LT Pro 45 Light")
+
+# basic packages, typically use in a cynkradown document
+library(ggplot2)
+library(tsbox)
+library(dplyr)
+library(tibble)
+library(cynkradown)
+# a more flexible way to create tables, using kable and kableExtra
+library(knitr)
+library(kableExtra)
+options(knitr.table.format = "latex")
+
+
+```
+
+# YAML Header
+
+YAML Optionen koennen durch ein  (`#`) auskommentiert werden. Das template
+unterstützt Deutsch, Englisch, Italienisch und Französisch. Um die
+Dokumentsprache inklusive Adresse, Tabellenbeschriftungen und Grafiken auf
+Englisch zu setzen, muss der YAML Header folgendermassen abgeändert werden:
+
+```yaml
+lang: english 
+```
+
+Neu ist die \LaTeX\ Engine standardmässig auf `xelatex` gesetzt, so dass die
+Bundes CI Schrift Frutiger dargestellt werden kann. Um diese zu deaktivieren,
+und stattdessen die (ähnliche) open source Schrift Roboto zu verwenden, kann
+diese Zeile auskommentiert werden:
+
+
+```yaml
+# latex_engine: xelatex 
+```
+
+Es stehen drei verschiedene *Layouts* zur Verfügung: Zweispalitg, einspaltig
+breit und einspaltig schmal. Zwischen diesen drei Layouts kann durch anpassen
+folgender YAML Optionen gewechselt werden. Im zweispalitigen Layout wird die
+`wide` Option ignoriert.
+
+```yaml
+twocolumn: true
+wide: false
+```
+
+# Markdown
+
+R Markdown Dokumente werden -- Überraschung! -- in Markdown verfasst. Mehr
+Details dazu findet man [hier](https://www.rstudio.com/wp-
+content/uploads/2015/03/rmarkdown-reference.pdf).
+
+Die Basis-Formatierungen umfassen, **fett**, *kursiv* und `fixe Breite`. 
+Aber man kann auch fast alles machen \uwave{was mit \LaTeX\ möglich ist.}
+Schreibt man `r round(rnorm(1), 4)`, so evaluiert R den Code, womit man leicht
+Dokumente erstellen kann, welche immer die neusten Zahlen enthalten.[^fn]
+
+[^fn]: Footnotes are easy to add and can contain formulas too: 
+    $$E=mc^2$$
+    Just make sure you use 4 spaces on the left.
+
+## Zitate
+
+Zitate werden können mit `>` abgehoben werden:
+
+> It's best to knit your `.Rmd` file early and knit often, so that you can 
+> catch errors early.
+>
+> --- *Albert Einstein*
+
+
+## Literaturverwaltung
+
+Nicht in dieser Vorlage enthalten, bitte eine "with bibliography"-Vorlage verwenden.
+
+## \LaTeX-Formeln
+
+\LaTeX-Formeln wie in LaTeX -- entweder inline, $E=mc^2$, oder auf einer eigenen
+Zeile:
+
+$$ 
+(x+y)^n = \sum_{k=0}^n {n \choose k} x^{n - k} y^k 
+$$
+
+
+## Code
+
+R Code erhält korrektes Syntax Highlighting:
+
+```r
+# r code gets proper syntax highlighting
+library(seasonal)
+a <- seas(AirPassengers)
+```
+
+Andere Sprache, etwa \LaTeX\ funktionieren ebenfalls:
+
+```tex
+% Other languages are supported as well
+$$y_t = \beta_0 + \beta_1 x_t + \varepsilon_t$$
+```
+
+## Itemize and Friends
+
+Anders als in \LaTeX\ sind *Itemize*-Elemente in Markdown sehr einfach. Wenn
+einen Lehrzeile gesetzt wird, erscheinen die Abstände im PDF etwas grösser.
+
+- Nunc vel nulla hendrerit, ultrices justo ut, ultrices sapien. Duis ut arcu at 
+  nunc pellentesque consectetur.
+
+- Nunc vel nulla hendrerit, ultrices justo ut, ultrices sapien. Duis ut arcu at 
+  nunc pellentesque consectetur.
+
+
+Wenn man nur wenige Wörter hat, kann man den extra Abstand auch weg lassen:
+
+- this,
+- this,
+- and that
+
+Gleiches für nummerierte Listen. Nummerierte Listen werden von \LaTeX\
+nummeriert, die verwendeten Zahlen ignoriert:
+
+1. this,
+2. this,
+3. and that
+5. and that
+
+Listen für Definitionen sind -- wie in \LaTeX\ -- ebenfalls möglich:
+
+Konsum
+: Nunc vel nulla hendrerit, ultrices justo ut, ultrices sapien. Duis ut arcu at 
+  nunc pellentesque consectetur.
+
+GDP
+: Nunc vel nulla hendrerit, ultrices justo ut, ultrices sapien. Duis ut arcu at 
+  nunc pellentesque consectetur.
+
+
+## Querverweise
+
+Querverweise zu Tabellen und Abbildung, wie etwa zu Tabelle \ref{tab:sverh},
+können mit den \LaTeX-Befehlen `\ref{tab:sverh}` and `\\label{tab:sverh}`
+erstellt werden, wobei `label` in der Caption der Tabelle oder Abbildung
+platziert werden muss.
+
+
+# Tabellen 
+
+Für Tabellen verwenden kann `knitr::kable` verwendet werden. Das ist sehr viel
+einfacher als das das verbreitete `xtable`. Zusammen mit den
+Gestaltungsfunktionen aus `kableExtra` sind die Tabellen leicht anzupassen. Eine
+Übersicht zu den Gestaltungsoptionen für PDFs findet man
+[hier](http://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf).
+
+
+```{r, echo=FALSE, warning=FALSE, results='asis'}
+
+swiss %>%
+  rownames_to_column("Municipality") %>% 
+  top_n(10, Infant.Mortality) %>% 
+  select(
+    Municipality, 
+    Infant.Mortality, 
+    Fertility, 
+    Agriculture
+  ) %>% 
+  kable(
+    booktabs = TRUE,
+    caption = 
+      "\\textbf{Einspaltige Standardtabelle}\\\\
+      Mit Hilfe von \\texttt{knitr::kable()} lassen sich einfach ansprechende 
+      Tabellen generieren."
+  ) %>% 
+  kable_styling(font_size = 8, latex_options = c("hold_position")) %>% 
+  column_spec(1, width = "2.5cm") %>% 
+  row_spec(c(3, 9), bold = TRUE) %>%
+    footnote(general = "Here is a general comments of the table.")
+
+```
+
+Eine zwei spalitige Tabelle kann mit `kable_twocolumn()` erstellt werden.
+Tabelle \ref{tab:twocol} zeigt ein Beispiel.
+
+
+```{r, echo=FALSE, warning=FALSE, results='asis'}
+swiss %>%
+  rownames_to_column("Municipality") %>% 
+  top_n(5, Infant.Mortality) %>%
+  kable(
+    booktabs = TRUE,
+    caption = 
+      "\\textbf{Zweispaltige Standardtabelle}\\\\
+      Mit \\texttt{kable\\_twocolumn()} lassen sich zweispaltige Tabellen generieren.\\label{tab:twocol}"
+  ) %>% 
+  kable_styling(font_size = 8) %>% 
+  kable_twocolumn()
+
+```
+
+
+
+# Grafiken
+
+## Einfache Grafiken
+
+Für die schnelle Erstellung von Zeitreihengrafiken ist 
+[`tsbox::ts_ggplot()`](https://www.tsbox.help/reference/ts_ggplot.html) zu
+empfehlen. Mit Hilfe von `theme_tsbox()` und `scale_color_tsbox()` lassen sich
+Grafiken einfach im tsbox Layout erstellen.
+
+```{r, warning = FALSE, echo=FALSE, fig.pos = 'H', fig.cap = "\\textbf{Einfache Grafik}\\\\ \\texttt{ttsbox::ts\\_ggplot()} kann verwendet werden, um einfache Grafiken zu erstellen."}
+
+# but also with standard ggplot
+ts_c(mdeaths, fdeaths)  %>% 
+  ts_ggplot() + 
+  theme_tsbox() + scale_color_tsbox() + 
+  ylab("Index Wert") + 
+  labs(caption= "Quelle: Seco")
+
+```
+
+## Zweispaltige Grafiken
+
+Grössere Grafiken können generiert werden, indem die Option `fig.fullwidth =
+TRUE` aktiviert wird. Um die dem neuen Format entsprechende Schrittgrössen zu
+erhalten, müssen `fig.width` und `fig.height` entsprechend angepasst werden.
+
+```{r, warning = FALSE, echo = FALSE, fig.width = 8.5, fig.height = 3.38, fig.fullwidth = TRUE, fig.cap = "\\textbf{Zweispaltige Grafik}\\\\Die Option \\texttt{fig.fullwidth = TRUE} reserviert beide Spalten für eine Grafik. Entsprechend müssen die Seitenverhaeltnisse mit \\texttt{fig.width = 8.5} und \\texttt{fig.height = 3.38} angepasst werden."}
+
+  # A plot with two axes. See ?sec_scale for more examples
+
+  df1 <- ts_c(mdeaths, fdeaths)
+  df2 <- ts_tbl(AirPassengers) %>% 
+    mutate(id = "AirPassengers")
+  
+  sc <- sec_scale(df1, df2)
+  
+  ggplot(ts_tbl(df1)) +
+    aes(x = time, y = value, color = id) +
+    geom_line() + 
+    layer(geom = "line", stat = "identity", 
+          data = ts_tbl(df2), 
+          mapping = aes(x = time, y = apply_sec_scale(value, sc)),
+          position = "identity") + 
+    scale_y_continuous(sec.axis = sec_axis(~. / sc[2] - sc[1])) +
+    theme_tsbox() + scale_color_tsbox() + scale_fill_tsbox() +
+
+    # add minior grid lines on wide plots
+    theme(panel.grid.minor.x = element_line(size = 0.2, color = "grey92"))
+
+```
+
+Eine Übersicht über die empfohlenen Seitenverhältnisse findet man in Tabelle
+\ref{tab:sverh}.
+
+```{r, echo=FALSE, warning=FALSE, results='asis'}
+
+frame_data(
+  ~"Layout"     , ~"Breite" , ~"Höhe" ,
+  "2 col small" , 4       , 3.5,
+  "2 col wide"  , 8.5     , 3.38,
+  "1 col"       , 7.25    , 3.5,
+  "beamer"      , 6       , 3.5
+) %>% 
+  kable(
+    booktabs = TRUE,
+    caption = 
+      "\\textbf{Empfohlene Seitenverhältnisse}\\\\
+      Je nach verwendetem Layout müssen die Seitenverhältnisse entsprechend 
+      angepasst werden.\\label{tab:sverh}"
+  ) %>% 
+  kable_styling(font_size = 8) %>% 
+  column_spec(1, width = "2.5cm")
+
+```
+
+# Positionieren von Grafiken und Tabellen
+
+Standardmässig platziert \LaTeX\ Grafiken und Tabellen selber und versucht
+dabei, sie an der aktuellen Position zu plazieren. Besonders viele Kompromisse
+geht \LaTeX\ dabei aber nicht ein, und oft landen Grafiken und Tabellen
+anderswo.
+
+Bei Abbildungen wird die aktuelle Position mit `fig.pos = 'H'` im Chunk-Header
+erzwungen. Für Tabllen kann die aktuelle Position mittels folgender
+`kable_styling` option erzwungen werden:
+
+```r
+kable_styling(
+  font_size = 8, 
+  latex_options = c("HOLD_position")
+) 
+```
+
+
+# \LaTeX\ erweitern
+
+Gelegentlich möchte man zusätzliche Funktionalität aus einem \LaTeX-Package
+verwenden. Dies kann im YAML Header spezifiziert werden. Soll etwa das `wasysym`
+Package zur Erstellung von Musiknoten verwendet werden, kann Folgendes
+hinzugefügt werden:
+
+```yaml
+header-includes:
+  - \usepackage{wasysym}
+```
+
+Anschliessend steht eine Reihe von Befehlen zur Verfügung, welche direkt
+innerhalb des Markdown Texts aufgerufen werden können:
+
+```tex
+\eighthnote \halfnote \twonotes \fullnote 
+\quarternote $\natural$ $\flat$ $\sharp$
+```
+
+# Spezielle Grafiken und Tabellen
+
+Im Folgenden werden einige spezielle Grafiken und Tabellen dargestellt, die bei
+tsbox Verwendung finden. Sie können als Ausgangspunkt für eigene Kreationen
+verwendet werden.
+
+
+## Kombinierte Grafiken und zwei Achsen: BIP Plot
+
+Zusammen mit zwei Hilfsfunktionen aus `cynkradown` macht
+[ggplot2](http://ggplot2.org/) die Erstellung von Grafiken mit zwei Achsen
+verhältnismässig einfach. Dies wird etwa für den ikonischen SECO GDP Plot
+verwendet.
+
+```{r, fig.pos = 'H', warning = FALSE, echo=FALSE, cache=FALSE, fig.height = 2.7, fig.cap = "\\textbf{Kombinierte Grafik}\\\\Balken- und Liniengrafiken können kombiniert werden, auch mit unterschiedlichen Achsen."}
+
+# the iconic GDP plot
+
+df1 <- ts_span(ts_pc(austres), start = "1989-01-01")
+df2 <- ts_span(austres, start = "1989-01-01")
+
+sc <- sec_scale(df1, df2)
+
+ggplot(ts_tbl(df1)) +
+  aes(x = time, y = value) +
+  geom_col(fill = "#6B9EDB") + 
+  ylab("Percentage change") +
+  layer(
+    geom = "line", 
+    stat = "identity", 
+    data = ts_tbl(df2), 
+    mapping = aes(x = time, y = apply_sec_scale(value, sc)),
+    position = "identity"
+  ) + 
+  scale_y_continuous(
+    sec.axis = sec_axis(~(. / sc[2]) - sc[1], 
+    name = "Population in 1000")
+  ) +
+  theme_tsbox() + scale_color_tsbox() + scale_fill_tsbox() +
+  # Achsenbeschriftung der Farben anpassen
+  theme(axis.title.y = element_text(color = "#6B9EDB")) +
+  theme(axis.title.y.right = element_text(color = "black"))
+
+```
+
+
+## Weitere Grafiken
+
+[ggplot2](http://ggplot2.org/) erlaubt die Erstellung von stark
+benutzerdefinierten Grafiken. Für eine Einführung in ggplot ist das
+[entsprechende Kapitel](http://r4ds.had.co.nz/data-visualisation.html) in @wickham16 zu empfehlen. Alle ggplots können mittels `theme_tsbox()` in das
+tsbox Layout gebracht werden. In Abbildung \ref{fig:scatter} is ein Scatterplot
+im tsbox Layout dargestellt.
+
+```{r, warning = FALSE, echo=FALSE, cache=FALSE, fig.height = 4.0, fig.cap = "\\textbf{Scatterplot}\\\\Neben Zeitreihen erlaubt ggplot auch die einfache Erstellung von anderen Grafiktypen, etwa Scatterplots.\\label{fig:scatter}"}
+
+# and a scatterplot
+
+library(ggrepel) # to get smart text labeling
+
+dta <- swiss %>% 
+  tibble::rownames_to_column("name") %>% 
+  as_data_frame() %>% 
+  mutate(is_cat = if_else(Catholic > 50, "catholic", "protestant")) 
+
+ggplot(dta) +
+  aes(x = Education, y = Fertility, color = is_cat) +
+  geom_point() + 
+  xlab("Education Score") + ylab("Fertility Score") +
+  geom_text_repel(
+    aes(x = Education, y = Fertility, label = name), 
+    data = filter(dta, Fertility < 50),
+    show.legend = FALSE, 
+    family = getOption("ts_font"),
+    size = 3.3
+  ) +
+  geom_smooth(method = "lm") + 
+
+  theme_tsbox() + scale_color_tsbox() + scale_fill_tsbox() +
+
+  # do not hide axis.title.x, as theme_tsbox usually does
+  theme(
+    axis.title.x = element_text(color = "black", 
+    size = ggplot2::rel(0.95), 
+    margin = margin(t = 7))
+  )
+
+```
+
+
+## Weitere Tabellen 
+
+### Prognosen
+
+Zum Erstellen von benutzerdefinierten Tabelle sind auch transponierte Dataframes
+nützlich, welche mithilfe von `dplyr::frame_data()` erstellt werden können. Im
+Folgenden wird die Funktion eingesetzt, um eine Übersicht über Prognosen zu
+geben:
+
+```{r, echo = FALSE, warning = FALSE, results = 'asis'}
+
+# Note the space after 'alt ' and 'neu ' - a trick to ensure unique colnames,
+# which are required by frame_data()
+
+dta <- frame_data(
+  ~"Jahr" , ~"alt " , ~"neu " , ~"alt" , ~"neu" ,
+  2017    , 2.4     , 2.5     , 2.5    , 2.5    ,
+  2018    , 2.4     , 2.5     , 2.5    , 2.5
+)
+
+# for more options, see: 
+# http://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf
+kable(
+  dta, 
+  booktabs = TRUE,
+  caption = 
+      "\\textbf{BIP Prognosen}\\\\
+      Vorhersagen sind schwierig, vor allem, wenn sie die Zukunft betreffen."
+  ) %>% 
+  kable_styling(position = "center", font_size = 10) %>% 
+  # Which columsn should be drawn bold?
+  column_spec(c(3, 5), bold = TRUE) %>% 
+  # The number indicates the number of columns that belong to a group.
+  add_header_above(c(" ", "Deflator" = 2, "Real" = 2)) %>% 
+  kable_styling(font_size = 8, latex_options = c("HOLD_position")) 
+
+```
+
+
+# Spezielle Umgebungen
+
+R Markdown Code kann \LaTeX-Code enthalten. Dies liefert die Grundlage für
+weitere Spezialisierungen. Im Folgenden sind einige Beispiel für spezielle
+Umgebungen dargestellt, die bei cynkra Verwendung finden.
+
+## Zwei-spaltige Blocks
+
+In Fact-Sheets werden verschiedentlich zwei-spaltige Blocks verwendet, in denen
+typischerweise ein Plot neben verschiedenen Bullets dargestellt werden. Da wir
+hier \LaTeX\ verwenden, müssen die Bullets ebenfalls als \LaTeX\ geschrieben
+werden.
+
+\begin{figure*}
+\begin{minipage}{.38\textwidth}
+\subsubsection{Zweispaltiger Block}
+Dies ist ein asymmetrischer Block mit einer etwas grösseren Grafik. Um einen 
+Symmetrischen Block zu erhalten, kann die Breite von beiden Spalten auf 48 
+gesetzt werden, und die Spezifikation von \texttt{fig.width} entfernt werden.
+\begin{itemize}
+  \tightlist  % remove if you want more space betweeen items
+  \item Leichter Anstieg in Q2
+  \item Paperlapap
+  \item One more bullet
+\end{itemize}
+\end{minipage} \hfill
+\begin{minipage}{.58\textwidth}
+```{r, warning = FALSE, echo=FALSE, fig.env='', fig.width  = 5.0}
+# ... but also with standard ggplot
+ts_c(mdeaths, fdeaths)  %>% 
+  ts_df() %>% 
+  ggplot() +
+  aes(x = time, y = value, color = id) + 
+  geom_line() + 
+  theme_tsbox() + scale_color_tsbox() + 
+  ylab("Index Wert") + 
+  labs(caption= "Quelle: Seco")
+
+```
+\end{minipage}
+\end{figure*} 
+
+
+Zwei nebeneinander liegende Grafiken können ebenfalls dargestellt werden. Man
+beachte, dass man hier nur eine Caption für beide Grafiken erstellen kann. Die
+Breite der Grafiken kann durch Anpassung der folgenden Zeile gesteuert werden:
+
+```tex
+\begin{minipage}{.48\textwidth}
+```
+Die Verschiedenen Minipages sollten sich nicht ganz zu 1
+addieren, so dass dazwischen etwas Platz bleibt.
+
+\begin{figure*}
+\begin{minipage}{.48\textwidth}
+```{r, warning = FALSE, echo=FALSE, fig.env='', fig.width  = 5.0}
+# ... but also with standard ggplot
+ts_c(mdeaths, fdeaths)  %>% 
+  ts_df() %>% 
+  ggplot() +
+  aes(x = time, y = value, color = id) + 
+  geom_line() + 
+  theme_tsbox() + scale_color_tsbox() + 
+  ylab("Index Wert") + 
+  labs(caption= "Quelle: Seco")
+
+```
+\end{minipage} \hfill
+\begin{minipage}{.48\textwidth}
+```{r, warning = FALSE, echo=FALSE, fig.env='', fig.width  = 5.0}
+# ... but also with standard ggplot
+ts_c(mdeaths, fdeaths)  %>% 
+  ts_df() %>% 
+  ggplot() +
+  aes(x = time, y = value, color = id) + 
+  geom_line() + 
+  theme_tsbox() + scale_color_tsbox() + 
+  ylab("Index Wert") + 
+  labs(caption= "Quelle: Seco")
+
+```
+\end{minipage}
+\caption{
+  \textbf{Zwei Grafiken, nebeneinander}\\
+  In diesem Modus ist nur eine Caption möglich. Die Idee ist, dass die Caption 
+  beide Grafiken betrifft. Möchte man zwei Grafiken mit separater Caption, 
+  sollte man Standardgrafiken verwenden.
+}
+\end{figure*}
+
+
+
