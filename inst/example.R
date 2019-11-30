@@ -1,10 +1,5 @@
 
 library(tidyverse)
-# FIXME how to kill the session again?
-tv::tv_turn_on_own_session()
-rstudioapi::viewer("http://127.0.0.1:1234")
-
-
 
 tv::on()
 

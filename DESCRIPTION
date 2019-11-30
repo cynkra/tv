@@ -9,7 +9,12 @@ Authors@R: c(
 Description: Overrides the print method for data frames and tibbles
     to provide a graphical output for rectangular data.
 Imports:
-    tibble
+    tibble,
+    future,
+    parallel,
+    fst,
+    reactable,
+    shiny
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
