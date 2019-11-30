@@ -19,7 +19,7 @@ miniPage(
       right = miniTitleBarButton("done", "Export", primary = TRUE)),
       miniContentPanel(
         fillCol(
-          reactableOutput("oTable")
+          DT::dataTableOutput("oTable")
         )
       )
     )

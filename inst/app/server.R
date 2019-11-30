@@ -8,12 +8,11 @@ rObj <- reactiveFileReader(50, NULL, filePath = path_tv("update.txt"), pull_obj)
 shinyServer(
   function(input, output, session) {
 
-    output$oTable <- renderReactable({
-      reactable(
+    output$oTable <- DT::renderDataTable({
+      DT::datatable(
         rObj(),
-        filterable = TRUE,
-        sortable = TRUE,
-        pagination = TRUE
+        filter = "top",
+        style = 'bootstrap'
       )
     })
 
