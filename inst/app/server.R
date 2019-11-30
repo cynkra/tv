@@ -13,7 +13,7 @@ shinyServer(
         rObj(),
         filterable = TRUE,
         sortable = TRUE,
-        pagination = FALSE
+        pagination = TRUE
       )
     })
 

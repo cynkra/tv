@@ -6,7 +6,7 @@ tv_turn_on <- function() {
 
 #' @export
 tv_turn_on_own_session <- function() {
-  system("Rscript -e 'tv::tv_turn_on()", wait = FALSE)
+  system("Rscript -e 'tv::tv_turn_on()'", wait = FALSE)
 }
 
 #

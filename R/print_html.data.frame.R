@@ -16,17 +16,14 @@ print_html.data.table <- function(x, ...) {
 
 print_html_df <- function(x, ...) {
   if (!interactive()) return(NULL)
-  print(rhandsontable::rhandsontable(
-    limit_df(x),
-    readOnly = T,
-    contextMenu = F,
-    height = "95vh"
-  ))
+  push_obj(limit_df(x))
 }
 
+# x <- nycflights13::flights
+# limit_df(x)
 limit_df <- function (x) {
-  tv.max.cells <- 1000
-  tv.max.rows <- 1000
+  tv.max.cells <- 500000
+  tv.max.rows <- 5000
   tv.max.cols <- 500
 
   # the idea is that seeing cols is more important than seeing rows
