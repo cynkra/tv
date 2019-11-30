@@ -22,7 +22,7 @@ print_html_df <- function(x, ...) {
 # x <- nycflights13::flights
 # limit_df(x)
 limit_df <- function (x) {
-  tv.max.cells <- 500000
+  tv.max.cells <- 50000
   tv.max.rows <- 5000
   tv.max.cols <- 500
 
