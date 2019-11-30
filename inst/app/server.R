@@ -9,7 +9,12 @@ shinyServer(
   function(input, output, session) {
 
     output$oTable <- renderReactable({
-      reactable(rObj())
+      reactable(
+        rObj(),
+        filterable = TRUE,
+        sortable = TRUE,
+        pagination = FALSE
+      )
     })
 
 
