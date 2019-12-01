@@ -13,34 +13,23 @@ library(reactable)
 # Define UI for application that draws a histogram
 
 miniPage(
-    gadgetTitleBar(
-      "tv",
-      left = miniTitleBarButton("cancel", "Turn Off", primary = FALSE),
-      right = miniTitleBarButton("done", "Export", primary = TRUE)),
-      miniContentPanel(
-        fillCol(
-          DT::dataTableOutput("oTable")
+      tags$head(tags$style(".dataTable {white-space: nowrap;}")),
+      miniTabstripPanel(
+        miniTabPanel("On TV",
+          icon = icon("desktop"),
+          miniContentPanel(
+            fillCol(
+              DT::dataTableOutput("oTable")
+            )
+          )
+        ), miniTabPanel("Settings",
+          icon = icon("cogs"),
+          miniContentPanel(
+            checkboxInput("iHasFilter", "Filter", FALSE),
+            sliderInput("iPageLength", "Page Length", 1, 50, 8, step = 1)
+          )
         )
-      )
+      ),
+      title = "TV"
     )
-# shinyUI(fluidPage(
 
-#     # Application title
-#     titlePanel("Old Faithful Geyser Data"),
-
-#     # Sidebar with a slider input for number of bins
-#     sidebarLayout(
-#         sidebarPanel(
-#             sliderInput("bins",
-#                         "Number of bins:",
-#                         min = 1,
-#                         max = 50,
-#                         value = 30)
-#         ),
-
-#         # Show a plot of the generated distribution
-#         mainPanel(
-#             reactableOutput("oTable")
-#         )
-#     )
-# ))

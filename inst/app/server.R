@@ -9,10 +9,20 @@ shinyServer(
   function(input, output, session) {
 
     output$oTable <- DT::renderDataTable({
+
+      filter <- if (input$iHasFilter) "top" else "none"
+
+      pageLength <- input$iPageLength
+
+
       DT::datatable(
         rObj(),
-        filter = "top",
-        style = 'bootstrap'
+        filter = filter,
+        style = 'bootstrap',
+        selection = "none",
+        autoHideNavigation = FALSE,
+        options = list(dom = 'tp', pageLength = pageLength),
+        class = 'display nowrap'  # no mulitline cells
       )
     })
 
