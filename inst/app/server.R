@@ -11,18 +11,35 @@ shinyServer(
     output$oTable <- DT::renderDataTable({
 
       filter <- if (input$iHasFilter) "top" else "none"
+      ordering <- input$iHasOrdering
 
-      pageLength <- input$iPageLength
+      scrollY <- input$iScrollY
 
+      dta <- rObj()
+
+      if ("rowname" %in% names(dta)) {
+        dta <- tibble::column_to_rownames(tibble::remove_rownames(dta))
+      }
+
+      deferRender <- if (nrow(dta) > 1000) TRUE else FALSE
 
       DT::datatable(
-        rObj(),
+        dta,
         filter = filter,
         style = 'bootstrap',
         selection = "none",
-        autoHideNavigation = FALSE,
-        options = list(dom = 'tp', pageLength = pageLength),
-        class = 'display nowrap'  # no mulitline cells
+        autoHideNavigation = TRUE,
+        rownames = TRUE,
+        extensions = c('Scroller', 'KeyTable'),
+        options = list(
+          scrollY = scrollY,
+          scrollX = TRUE,
+          deferRender = deferRender,
+          scroller = TRUE,
+          keys = TRUE,
+          dom = 't',
+          ordering = ordering
+        )
       )
     })
 

@@ -19,14 +19,15 @@ miniPage(
           icon = icon("desktop"),
           miniContentPanel(
             fillCol(
-              DT::dataTableOutput("oTable")
+              DT::dataTableOutput("oTable", height = "100%")
             )
           )
         ), miniTabPanel("Settings",
           icon = icon("cogs"),
           miniContentPanel(
             checkboxInput("iHasFilter", "Filter", FALSE),
-            sliderInput("iPageLength", "Page Length", 1, 50, 8, step = 1)
+            checkboxInput("iHasOrdering", "Ordering", FALSE),
+            sliderInput("iScrollY", "scrollY", 300, 800, 400, step = 10)
           )
         )
       ),
