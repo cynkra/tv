@@ -27,7 +27,7 @@ miniPage(
           miniContentPanel(
             checkboxInput("iHasFilter", "Filter", FALSE),
             checkboxInput("iHasOrdering", "Ordering", FALSE),
-            sliderInput("iScrollY", "scrollY", 300, 800, 400, step = 10)
+            sliderInput("iScrollY", "scrollY", min = 70, max = 100, value = 90, step = 1)
           )
         )
       ),

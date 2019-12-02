@@ -13,7 +13,7 @@ shinyServer(
       filter <- if (input$iHasFilter) "top" else "none"
       ordering <- input$iHasOrdering
 
-      scrollY <- input$iScrollY
+      scrollY <- paste0(input$iScrollY, "vh")
 
       dta <- rObj()
 
@@ -38,8 +38,12 @@ shinyServer(
         options = list(
           scrollY = scrollY,
           scrollX = TRUE,
-          deferRender = deferRender,
-          scroller = TRUE,
+          deferRender = TRUE,
+          scroller = list(
+            loadingIndicator = TRUE,
+            displayBuffer = 7,
+            boundaryScale = 0.5
+          ),
           keys = TRUE,
           dom = 't',
           ordering = ordering
