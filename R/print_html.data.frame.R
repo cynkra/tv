@@ -16,7 +16,13 @@ print_html.data.table <- function(x, ...) {
 
 print_html_df <- function(x, ...) {
   if (!interactive()) return(NULL)
-  push_obj(limit_df(x))
+
+  x <- limit_df(x)
+  rn <- attributes(x)$row.names
+  if (!(is.integer(rn) || is.null(rn))) {
+    x <- tibble::rownames_to_column(x)
+  }
+  push_obj(x)
 }
 
 # x <- nycflights13::flights
