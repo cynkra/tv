@@ -3,7 +3,7 @@ NULL
 
 #' @export
 on <- function(verbose = FALSE) {
-  register_s3_method("base", "print", "data.table", print_html)
+  # register_s3_method("base", "print", "data.table", print_html)
   register_s3_method("base", "print", "tbl_df", print_html)
   register_s3_method("base", "print", "data.frame", print_html)
   # register_s3_method("stats", "print", "ts", print_html)
@@ -15,6 +15,25 @@ on <- function(verbose = FALSE) {
     message("TV is on!")
   }
 }
+
+#' @export
+off <- function(verbose = TRUE) {
+  # register_s3_method("base", "print", "data.table", print_html)
+  register_s3_method("base", "print", "tbl_df", tibble:::print.tbl)
+  register_s3_method("base", "print", "data.frame", print.data.frame)
+  # register_s3_method("stats", "print", "ts", print_html)
+  # register_s3_method("xts", "print", "xts", print_html)
+  # register_s3_method("zoo", "print", "zoo", print_html)
+  # tv_remote_own_session()
+  parallel::stopCluster(.tv_env$cl)
+
+  if (verbose) {
+    message("TV is off!")
+  }
+}
+
+
+
 
 
 # did not work on first try

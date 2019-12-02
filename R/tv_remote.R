@@ -4,11 +4,13 @@ tv_remote <- function() {
   runApp(system.file(package = "tv", "app"), port = 1234)
 }
 
+.tv_env <- new.env()
+
 #' @export
 tv_remote_own_session <- function() {
 
-  cl <- parallel::makeCluster(1)
-  future::remote(tv::tv_remote(), workers = cl)
+  .tv_env$cl <- parallel::makeCluster(1)
+  future::remote(tv::tv_remote(), workers = .tv_env$cl)
 
   Sys.sleep(0.5)
 
@@ -19,5 +21,3 @@ tv_remote_own_session <- function() {
   }
 
 }
-
-#
