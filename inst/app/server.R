@@ -23,6 +23,10 @@ shinyServer(
 
       deferRender <- if (nrow(dta) > 1000) TRUE else FALSE
 
+      if (colnames(dta)[1] == "...start.up") {
+        dta <- NULL
+      }
+
       DT::datatable(
         dta,
         filter = filter,

@@ -1,7 +1,7 @@
 
 #' @export
 push_obj <- function(x) {
-  fst::write_fst(x, path = path_tv("obj.fst"), compress = 0)
+  safe_write_fst(x, path = path_tv("obj.fst"), compress = 0)
   # check time stamp of update.txt, to make sure writing is complete
   fs::file_touch(path_tv("update.txt"))
   TRUE
@@ -10,7 +10,7 @@ push_obj <- function(x) {
 #' @export
 pull_obj <- function(path) {
   # path is ignored
-  fst::read_fst(path_tv("obj.fst"))
+  safe_read_fst(path_tv("obj.fst"))
 }
 
 #' @export
@@ -18,6 +18,24 @@ path_tv <- function(file = "obj.fst") {
   tv_dir <- "~/.tv_chache"
   fs::dir_create(tv_dir)
   fs::path(tv_dir, file)
+}
+
+
+
+
+safe_write_fst <- function(data, path, ...) {
+  if (nrow(data) == 0) {
+    data <- data[1, ]
+  }
+  fst::write_fst(data, path, ...)
+}
+
+safe_read_fst <- function(path, ...) {
+  data <- fst::read_fst(path, ...)
+  if (nrow(data) == 1 && all(vapply(data, is.na, TRUE))) {
+    data <- data[0, ]
+  }
+  data
 }
 
 
