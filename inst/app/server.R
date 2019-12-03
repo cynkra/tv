@@ -8,6 +8,8 @@ rObj <- reactiveFileReader(50, NULL, filePath = path_tv("update.txt"), pull_obj)
 shinyServer(
   function(input, output, session) {
 
+
+    if (FALSE) {
     output$oTable <- DT::renderDataTable({
 
       filter <- if (input$iHasFilter) "top" else "none"
@@ -34,21 +36,45 @@ shinyServer(
         selection = "none",
         autoHideNavigation = TRUE,
         rownames = TRUE,
-        extensions = c('Scroller', 'KeyTable'),
+        extensions = c('KeyTable'),
         options = list(
           scrollY = scrollY,
           scrollX = TRUE,
-          deferRender = TRUE,
-          scroller = list(
-            loadingIndicator = TRUE,
-            displayBuffer = 7,
-            boundaryScale = 0.5
-          ),
-          keys = TRUE,
-          dom = 't',
+          # deferRender = TRUE,
+          # scroller = list(
+          #   loadingIndicator = TRUE,
+          #   displayBuffer = 7,
+          #   boundaryScale = 0.5
+          # ),
+          # keys = TRUE,
+          dom = 'tp',
           ordering = ordering
         )
       )
+    })
+
+    }
+
+
+    output$oReactable <- reactable::renderReactable({
+
+      dta <- rObj()
+
+      if ("rowname" %in% names(dta)) {
+        dta <- tibble::column_to_rownames(tibble::remove_rownames(dta))
+      }
+
+      if (colnames(dta)[1] == "...start.up") {
+        dta <- NULL
+      }
+
+      req(dta)
+
+      if (nrow(dta) > 200) dta <- dta[1:200,]
+
+
+      reactable::reactable(dta)
+
     })
 
 

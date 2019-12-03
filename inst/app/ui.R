@@ -19,7 +19,8 @@ miniPage(
           icon = icon("desktop"),
           miniContentPanel(
             fillCol(
-              DT::dataTableOutput("oTable", height = "100%")
+              reactable::reactableOutput("oReactable")
+              # DT::dataTableOutput("oTable", height = "100%")
             )
           )
         ), miniTabPanel("Settings",
