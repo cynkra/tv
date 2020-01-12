@@ -19,7 +19,7 @@ print_html_df <- function(x, ...) {
 
   x <- limit_df(x)
   rn <- attributes(x)$row.names
-  if (!(is.integer(rn) || is.null(rn))) {
+  if (tibble::has_rownames(x)) {
     x <- tibble::rownames_to_column(x)
   }
   push_obj(x)
