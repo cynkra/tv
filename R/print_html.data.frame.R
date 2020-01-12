@@ -16,18 +16,20 @@ print_html.data.table <- function(x, ...) {
 
 print_html_df <- function(x, ...) {
   if (!interactive()) return(NULL)
-  print(rhandsontable::rhandsontable(
-    limit_df(x),
-    readOnly = T,
-    contextMenu = F,
-    height = "95vh"
-  ))
+
+  x <- limit_df(x)
+  if (tibble::has_rownames(x)) {
+    x <- tibble::rownames_to_column(x)
+  }
+  push_obj(x)
 }
 
+# x <- nycflights13::flights
+# limit_df(x)
 limit_df <- function (x) {
-  tv.max.cells <- 1000
-  tv.max.rows <- 1000
-  tv.max.cols <- 500
+  tv.max.cells <- 5000
+  tv.max.rows <- 50000
+  tv.max.cols <- 5000
 
   # the idea is that seeing cols is more important than seeing rows
   tv.col.precedence <- TRUE
