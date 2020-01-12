@@ -11,7 +11,6 @@ library(shiny)
 library(reactable)
 library(shinyWidgets)
 
-# Define UI for application that draws a histogram
 
 miniPage(
       tags$head(tags$style(".dataTable {white-space: nowrap;}")),
@@ -40,4 +39,3 @@ miniPage(
       ),
       title = "TV"
     )
-
