@@ -22,6 +22,9 @@ path_tv <- function(file = "obj.fst") {
 
 
 
+# 'soon' to be resolved:
+
+# https://github.com/fstpackage/fst/issues/99
 
 safe_write_fst <- function(data, path, ...) {
   if (nrow(data) == 0) {
