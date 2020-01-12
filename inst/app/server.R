@@ -70,12 +70,24 @@ shinyServer(
 
       req(dta)
 
-      if (nrow(dta) > 200) dta <- dta[1:200,]
 
 
-      reactable::reactable(dta)
-
+      reactable::reactable(
+        dta,
+        # defaultPageSize = 8,
+        filterable        = input$opt_re_filterable,
+        searchable        = input$opt_re_searchable,
+        sortable          = input$opt_re_sortable,
+        compact           = TRUE,
+        bordered          = input$opt_re_bordered,
+        resizable         = input$opt_re_resizable,
+        highlight         = input$opt_re_highlight,
+        striped           = input$opt_re_striped,
+        wrap              = FALSE,
+        fullWidth         = FALSE,
+        pagination        = FALSE,
+        height            = if (nrow(dta) < 8) "auto" else "calc(100vh - 48px)"
+      )
     })
-
 
 })

@@ -9,28 +9,34 @@
 library(miniUI)
 library(shiny)
 library(reactable)
+library(shinyWidgets)
 
 # Define UI for application that draws a histogram
 
 miniPage(
       tags$head(tags$style(".dataTable {white-space: nowrap;}")),
-      miniTabstripPanel(
-        miniTabPanel("On TV",
-          icon = icon("desktop"),
-          miniContentPanel(
-            fillCol(
-              reactable::reactableOutput("oReactable")
-              # DT::dataTableOutput("oTable", height = "100%")
-            )
-          )
-        ), miniTabPanel("Settings",
-          icon = icon("cogs"),
-          miniContentPanel(
-            checkboxInput("iHasFilter", "Filter", FALSE),
-            checkboxInput("iHasOrdering", "Ordering", FALSE),
-            sliderInput("iScrollY", "scrollY", min = 70, max = 100, value = 90, step = 1)
-          )
-        )
+      miniContentPanel(
+          reactable::reactableOutput("oReactable"),
+          # DT::dataTableOutput("oTable", height = "100%")
+        tags$div(style = "height: 4px;"), # spacing
+        dropdownButton(
+          inputId = "mydropdown",
+          label = "Controls",
+          size = "xs",
+          icon = icon("ellipsis-h"),
+          status = "default",
+          circle = TRUE,
+          right = FALSE,
+          up = TRUE,
+              checkboxInput("opt_re_filterable",   "filterable", FALSE),
+              checkboxInput("opt_re_sortable",     "sortable",   FALSE),
+              checkboxInput("opt_re_searchable",   "searchable", FALSE),
+              checkboxInput("opt_re_highlight",    "highlight",  FALSE),
+              checkboxInput("opt_re_striped",      "striped",    TRUE),
+              checkboxInput("opt_re_bordered",     "bordered",   TRUE),
+              checkboxInput("opt_re_resizable",    "resizable",  TRUE)
+        ),
+        scrollable = TRUE
       ),
       title = "TV"
     )
