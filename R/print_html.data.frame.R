@@ -18,7 +18,6 @@ print_html_df <- function(x, ...) {
   if (!interactive()) return(NULL)
 
   x <- limit_df(x)
-  rn <- attributes(x)$row.names
   if (tibble::has_rownames(x)) {
     x <- tibble::rownames_to_column(x)
   }
