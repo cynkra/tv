@@ -4,7 +4,6 @@ library(reactable)
 
 rObj <- reactiveFileReader(50, NULL, filePath = path_tv("update.txt"), pull_obj)
 
-# Define server logic required to draw a histogram
 shinyServer(
   function(input, output, session) {
 
