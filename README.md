@@ -2,7 +2,7 @@
 
 ### Usage
 
-Turn on TV and whatch for data frames in your R session:
+Turn on TV and watch for data frames in your R session:
 
 ```r
 tv::on()
@@ -55,7 +55,6 @@ Switching back and forth, but Reactable is now my favorite.
 #### Perhaps:
 
 - Option to switch between Datatable and Reactable in the Menu, so we could experiment with Datatable for large datasets.
-
 
 
 
