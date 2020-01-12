@@ -9,7 +9,13 @@ Authors@R: c(
 Description: Overrides the print method for data frames and tibbles
     to provide a graphical output for rectangular data.
 Imports:
-    tibble
+    tibble,
+    future,
+    parallel,
+    fst,
+    reactable,
+    shiny,
+    shinyWidgets
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -17,4 +23,4 @@ Date: 2018-05-24
 BugReports: https://github.com/krlmlr/tv/issues
 URL: https://github.com/krlmlr/tv, http://krlmlr.github.io/tv
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1
