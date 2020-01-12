@@ -14,7 +14,8 @@ Imports:
     parallel,
     fst,
     reactable,
-    shiny
+    shiny,
+    shinyWidgets
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
