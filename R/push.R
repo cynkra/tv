@@ -15,7 +15,7 @@ pull_obj <- function(path) {
 
 #' @export
 path_tv <- function(file = "obj.fst") {
-  tv_dir <- "~/.tv_chache"
+  tv_dir <- normalizePath("~/.tv_chache", mustWork = FALSE)
   fs::dir_create(tv_dir)
   fs::path(tv_dir, file)
 }
