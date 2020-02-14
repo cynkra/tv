@@ -13,14 +13,6 @@ pull_obj <- function(path) {
   safe_read_fst(tv_path("tv_obj.fst"))
 }
 
-#' @export
-tv_path <- function(file) {
-  tv_dir <- normalizePath("~/.tv_cache", mustWork = FALSE)
-  fs::dir_create(tv_dir)
-  fs::path(tv_dir, file)
-}
-
-
 
 # 'soon' to be resolved:
 
