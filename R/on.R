@@ -3,6 +3,14 @@ NULL
 
 #' @export
 on <- function(verbose = FALSE) {
+
+
+  tv_path <- file.path(tempdir(), "tv_cache")
+  fs::dir_create(tv_path)
+
+  # tv_path <- "~/.tv_cache"
+  tv_set_path(tv_path)
+
   # register_s3_method("base", "print", "data.table", print_html)
   register_s3_method("base", "print", "tbl_df", print_html)
   register_s3_method("base", "print", "data.frame", print_html)
@@ -10,15 +18,18 @@ on <- function(verbose = FALSE) {
   # register_s3_method("xts", "print", "xts", print_html)
   # register_s3_method("zoo", "print", "zoo", print_html)
 
+
   tv_set_status(TRUE)  # tell both sessions tv is on
 
-  tv_remote_own_session()  # start tv session
+  tv_remote_own_session(tv_path)  # start tv session
 
   push_obj(tibble::tibble(...start.up = 0))  # empty start up
 
   if (verbose) {
     message("TV is on!")
   }
+
+  return(invisible(TRUE))
 }
 
 #' @export
