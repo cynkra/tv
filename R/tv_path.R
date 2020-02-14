@@ -1,9 +1,15 @@
-tv_path <- function(...) {
+#' Show Exchange Path of TV
+#'
+#' The main R session uses this path to exchange information with the TV session.
+#' Exported for debugging.
+#'
+#' @export
+path <- function(...) {
   tv_path <- .tv_env$tv_path
   file.path(tv_path, ...)
 }
 
-tv_set_path <- function(path) {
+set_path <- function(path) {
   .tv_env$tv_path <- path
   invisible(path)
 }

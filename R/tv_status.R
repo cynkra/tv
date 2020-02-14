@@ -1,11 +1,17 @@
-tv_set_status <- function(status = TRUE) {
+set_status <- function(status = TRUE) {
   stopifnot(inherits(status, "logical"))
-  cat(as.character(as.integer(status)), file = tv_path("tv_status"))
+  cat(as.character(as.integer(status)), file = path("tv_status"))
 }
 
-tv_get_status <- function() {
-  if (!file.exists(tv_path("tv_status"))) return(FALSE)
-  con = file(tv_path("tv_status"))
+
+#' Show Status of TV
+#'
+#' `TRUE`: on, `FALSE: off. Exported for debugging.
+#'
+#' @export
+status <- function() {
+  if (!file.exists(path("tv_status"))) return(FALSE)
+  con = file(path("tv_status"))
   on.exit(close(con))
   ans <- readLines(con = con, warn = FALSE)
   as.logical(as.integer(ans))

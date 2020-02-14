@@ -11,14 +11,14 @@ push_obj <- function(x) {
   is_hms <- vapply(x, function(e) inherits(e, "hms"), TRUE)
   if (any(is_hms)) x[is_hms] <- lapply(x[is_hms], as.character)
 
-  safe_write_fst(x, path = tv_path("tv_obj.fst"), compress = 0)
+  safe_write_fst(x, path = path("tv_obj.fst"), compress = 0)
   # check time stamp of tv_update, to make sure writing is complete
-  fs::file_touch(tv_path("tv_update"))
+  fs::file_touch(path("tv_update"))
   TRUE
 }
 pull_obj <- function(path) {
   # path is ignored
-  safe_read_fst(tv_path("tv_obj.fst"))
+  safe_read_fst(path("tv_obj.fst"))
 }
 
 
