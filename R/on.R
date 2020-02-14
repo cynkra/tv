@@ -2,7 +2,9 @@
 NULL
 
 #' @export
-on <- function(verbose = FALSE) {
+on <- function(verbose = FALSE, port = NULL) {
+
+  if (is.null(port)) port <- random_port()
 
 
   tv_path <- file.path(tempdir(), "tv_cache")
@@ -26,7 +28,7 @@ on <- function(verbose = FALSE) {
 
   tv_set_status(TRUE)  # tell both sessions tv is on
 
-  tv_remote_own_session(tv_path)  # start tv session
+  tv_remote_own_session(tv_path, tv_port = port)  # start tv session
 
   push_obj(tibble::tibble(...start.up = 0))  # empty start up
 
