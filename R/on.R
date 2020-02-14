@@ -11,6 +11,11 @@ on <- function(verbose = FALSE) {
   # tv_path <- "~/.tv_cache"
   tv_set_path(tv_path)
 
+  if (tv_get_status()) {
+    message("TV is already on.")
+    return(invisible(TRUE))
+  }
+
   # register_s3_method("base", "print", "data.table", print_html)
   register_s3_method("base", "print", "tbl_df", print_html)
   register_s3_method("base", "print", "data.frame", print_html)
