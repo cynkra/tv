@@ -1,7 +1,10 @@
-#' @export
-tv_path <- function(file) {
-  tv_dir <- normalizePath("~/.tv_cache", mustWork = FALSE)
-  fs::dir_create(tv_dir)
-  fs::path(tv_dir, file)
+tv_path <- function(...) {
+  tv_path <- .tv_env$tv_path
+  file.path(tv_path, ...)
+}
+
+tv_set_path <- function(path) {
+  .tv_env$tv_path <- path
+  invisible(path)
 }
 
