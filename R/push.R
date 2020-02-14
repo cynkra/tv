@@ -1,6 +1,18 @@
 
 #' @export
 push_obj <- function(x) {
+
+  # workarounds for unknown col types
+
+  # lists cannot be stored as fst
+  # (nor displayed by reactable::reactable)
+  x[vapply(x, is.list, TRUE)] <- "[Object]"
+
+  # hms cannot be stored as fst
+  # (but could be displayed by reactable::reactable)
+  is_hms <- vapply(x, function(e) inherits(e, "hms"), TRUE)
+  if (any(is_hms)) x[is_hms] <- lapply(x[is_hms], as.character)
+
   safe_write_fst(x, path = tv_path("tv_obj.fst"), compress = 0)
   # check time stamp of tv_update, to make sure writing is complete
   fs::file_touch(tv_path("tv_update"))
