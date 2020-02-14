@@ -4,8 +4,6 @@ tv_remote <- function() {
   runApp(system.file(package = "tv", "app"), port = 1234)
 }
 
-.tv_env <- new.env()
-
 #' @export
 tv_remote_own_session <- function() {
 
