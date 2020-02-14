@@ -5,6 +5,8 @@ tv_set_status <- function(status = TRUE) {
 
 tv_get_status <- function() {
   if (!file.exists(tv_path("tv_status"))) return(FALSE)
-  ans <- readLines(con = file(tv_path("tv_status")), warn = FALSE)
+  con = file(tv_path("tv_status"))
+  on.exit(close(con))
+  ans <- readLines(con = con, warn = FALSE)
   as.logical(as.integer(ans))
 }
