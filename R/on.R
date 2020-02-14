@@ -2,7 +2,22 @@
 NULL
 
 #' @export
-on <- function(verbose = FALSE) {
+on <- function(verbose = FALSE, port = NULL) {
+
+  if (is.null(port)) port <- random_port()
+
+
+  tv_path <- file.path(tempdir(), "tv_cache")
+  fs::dir_create(tv_path)
+
+  # tv_path <- "~/.tv_cache"
+  tv_set_path(tv_path)
+
+  if (tv_get_status()) {
+    message("TV is already on.")
+    return(invisible(TRUE))
+  }
+
   # register_s3_method("base", "print", "data.table", print_html)
   register_s3_method("base", "print", "tbl_df", print_html)
   register_s3_method("base", "print", "data.frame", print_html)
@@ -10,15 +25,18 @@ on <- function(verbose = FALSE) {
   # register_s3_method("xts", "print", "xts", print_html)
   # register_s3_method("zoo", "print", "zoo", print_html)
 
+
   tv_set_status(TRUE)  # tell both sessions tv is on
 
-  tv_remote_own_session()  # start tv session
+  tv_remote_own_session(tv_path, tv_port = port)  # start tv session
 
   push_obj(tibble::tibble(...start.up = 0))  # empty start up
 
   if (verbose) {
     message("TV is on!")
   }
+
+  return(invisible(TRUE))
 }
 
 #' @export
@@ -38,16 +56,6 @@ tv_unregister <- function() {
   # register_s3_method("base", "print", "data.table", print_html)
   register_s3_method("base", "print", "tbl_df", tibble:::print.tbl)
   register_s3_method("base", "print", "data.frame", print.data.frame)
-}
-
-tv_set_status <- function(status = TRUE) {
-  stopifnot(inherits(status, "logical"))
-  cat(as.character(as.integer(status)), file = path_tv("tv_status"))
-}
-
-tv_get_status <- function() {
-  ans <- readLines(con = file(path_tv("tv_status")), warn = FALSE)
-  as.logical(as.integer(ans))
 }
 
 

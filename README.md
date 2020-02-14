@@ -16,6 +16,7 @@ TV is turned off:
 1. if the last TV browser tab is closed
 2. if turned off from the settings menu
 3. by entering `tv::off()` in the R session
+4. if `tempdir()` is deleted.
 
 Turning off will restore the print method of data frames.
 
