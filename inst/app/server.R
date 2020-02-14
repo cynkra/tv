@@ -9,53 +9,6 @@ r <- reactiveValues(session_count = 0)
 shinyServer(
   function(input, output, session) {
 
-
-    if (FALSE) {
-    output$oTable <- DT::renderDataTable({
-
-      filter <- if (input$iHasFilter) "top" else "none"
-      ordering <- input$iHasOrdering
-
-      scrollY <- paste0(input$iScrollY, "vh")
-
-      dta <- r_data_frame()
-
-      if ("rowname" %in% names(dta)) {
-        dta <- tibble::column_to_rownames(tibble::remove_rownames(dta))
-      }
-
-      deferRender <- if (nrow(dta) > 1000) TRUE else FALSE
-
-      if (colnames(dta)[1] == "...start.up") {
-        dta <- NULL
-      }
-
-      DT::datatable(
-        dta,
-        filter = filter,
-        style = 'bootstrap',
-        selection = "none",
-        autoHideNavigation = TRUE,
-        rownames = TRUE,
-        extensions = c('KeyTable'),
-        options = list(
-          scrollY = scrollY,
-          scrollX = TRUE,
-          # deferRender = TRUE,
-          # scroller = list(
-          #   loadingIndicator = TRUE,
-          #   displayBuffer = 7,
-          #   boundaryScale = 0.5
-          # ),
-          # keys = TRUE,
-          dom = 'tp',
-          ordering = ordering
-        )
-      )
-    })
-
-    }
-
     # turn tv off --------------------------------------------------------------
 
     # stop app AND and terminate R session if status 0
