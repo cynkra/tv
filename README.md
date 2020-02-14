@@ -11,14 +11,13 @@ Turn on the TV and watch for data frames in your R session:
 tv::on()
 ```
 
-Turn it off:
+TV is turned off:
 
-```r
-tv::off()
-```
+1. if the last TV browser tab is closed
+2. if turned off from the settings menu
+3. by entering `tv::off()` in the R session
 
-Currently, this doesn't stop the background shiny process.
-
+Turning off will restore the print method of data frames.
 
 ### Ideas
 
