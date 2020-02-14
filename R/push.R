@@ -1,21 +1,21 @@
 
 #' @export
 push_obj <- function(x) {
-  safe_write_fst(x, path = path_tv("obj.fst"), compress = 0)
-  # check time stamp of update.txt, to make sure writing is complete
-  fs::file_touch(path_tv("update.txt"))
+  safe_write_fst(x, path = path_tv("tv_obj.fst"), compress = 0)
+  # check time stamp of tv_update, to make sure writing is complete
+  fs::file_touch(path_tv("tv_update"))
   TRUE
 }
 
 #' @export
 pull_obj <- function(path) {
   # path is ignored
-  safe_read_fst(path_tv("obj.fst"))
+  safe_read_fst(path_tv("tv_obj.fst"))
 }
 
 #' @export
-path_tv <- function(file = "obj.fst") {
-  tv_dir <- normalizePath("~/.tv_chache", mustWork = FALSE)
+path_tv <- function(file) {
+  tv_dir <- normalizePath("~/.tv_cache", mustWork = FALSE)
   fs::dir_create(tv_dir)
   fs::path(tv_dir, file)
 }
