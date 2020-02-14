@@ -33,7 +33,8 @@ miniPage(
               checkboxInput("opt_re_highlight",    "highlight",  FALSE),
               checkboxInput("opt_re_striped",      "striped",    TRUE),
               checkboxInput("opt_re_bordered",     "bordered",   TRUE),
-              checkboxInput("opt_re_resizable",    "resizable",  TRUE)
+              checkboxInput("opt_re_resizable",    "resizable",  TRUE),
+              shiny::actionButton("turn_off", "Turn off", icon = icon("power-off"))
         ),
         scrollable = TRUE
       ),
