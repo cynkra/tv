@@ -2,7 +2,7 @@ library(shiny)
 library(tv)
 library(reactable)
 
-r_data_frame <- reactiveFileReader(50, NULL, filePath = path_tv("tv_update"), pull_obj)
+r_data_frame <- reactiveFileReader(50, NULL, filePath = tv_path("tv_update"), pull_obj)
 
 r <- reactiveValues(session_count = 0)
 
@@ -18,7 +18,7 @@ shinyServer(
     # - turn off button
     # - last shiny session closed
 
-    r_status <- reactiveFileReader(1000, session, path_tv("tv_status"), function(file) tv:::tv_get_status())
+    r_status <- reactiveFileReader(1000, session, tv_path("tv_status"), function(file) tv:::tv_get_status())
     observe({
       status <- r_status()
       if (!status) {
