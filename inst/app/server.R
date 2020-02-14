@@ -4,7 +4,7 @@ library(reactable)
 
 tv:::tv_set_path(getShinyOption("tv_path"))
 
-r_data_frame <- reactiveFileReader(50, NULL, filePath = tv:::tv_path("tv_update"), pull_obj)
+r_data_frame <- reactiveFileReader(50, NULL, filePath = tv:::tv_path("tv_update"), tv:::pull_obj)
 
 r <- reactiveValues(session_count = 0)
 

@@ -1,5 +1,3 @@
-
-#' @export
 push_obj <- function(x) {
 
   # workarounds for unknown col types
@@ -18,8 +16,6 @@ push_obj <- function(x) {
   fs::file_touch(tv_path("tv_update"))
   TRUE
 }
-
-#' @export
 pull_obj <- function(path) {
   # path is ignored
   safe_read_fst(tv_path("tv_obj.fst"))
