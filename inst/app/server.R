@@ -2,7 +2,7 @@ library(shiny)
 library(tv)
 library(reactable)
 
-rObj <- reactiveFileReader(50, NULL, filePath = path_tv("update.txt"), pull_obj)
+r_data_frame <- reactiveFileReader(50, NULL, filePath = path_tv("tv_update"), pull_obj)
 
 shinyServer(
   function(input, output, session) {
@@ -16,7 +16,7 @@ shinyServer(
 
       scrollY <- paste0(input$iScrollY, "vh")
 
-      dta <- rObj()
+      dta <- r_data_frame()
 
       if ("rowname" %in% names(dta)) {
         dta <- tibble::column_to_rownames(tibble::remove_rownames(dta))
@@ -57,7 +57,7 @@ shinyServer(
 
     output$oReactable <- reactable::renderReactable({
 
-      dta <- rObj()
+      dta <- r_data_frame()
 
       if ("rowname" %in% names(dta)) {
         dta <- tibble::column_to_rownames(tibble::remove_rownames(dta))
