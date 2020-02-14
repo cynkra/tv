@@ -92,8 +92,10 @@ shinyServer(
     isolate(r$session_count <- r$session_count + 1)
     # When a session ends, decrement the counter.
     session$onSessionEnded(function() {
-      if (isolate(r$session_count) == 0) {
+      if (isolate(r$session_count) < 2) {
         tv:::tv_set_status(FALSE)
+        # app does not check status after this, so we need kill it here
+        shiny::stopApp(quit(save = "no"))
       }
       # We use isolate() here for the same reasons as above.
       isolate(r$session_count <- r$session_count - 1)
