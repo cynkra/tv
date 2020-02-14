@@ -2,62 +2,64 @@ library(shiny)
 library(tv)
 library(reactable)
 
-rObj <- reactiveFileReader(50, NULL, filePath = path_tv("update.txt"), pull_obj)
+r_data_frame <- reactiveFileReader(50, NULL, filePath = path_tv("tv_update"), pull_obj)
+
+r <- reactiveValues(session_count = 0)
 
 shinyServer(
   function(input, output, session) {
 
+    # turn tv off --------------------------------------------------------------
 
-    if (FALSE) {
-    output$oTable <- DT::renderDataTable({
+    # stop app AND and terminate R session if status 0
 
-      filter <- if (input$iHasFilter) "top" else "none"
-      ordering <- input$iHasOrdering
+    # status 0 can be triggered by:
+    # - from main session (by tv:::tv_set_status(FALSE))
+    # - turn off button
+    # - last shiny session closed
 
-      scrollY <- paste0(input$iScrollY, "vh")
-
-      dta <- rObj()
-
-      if ("rowname" %in% names(dta)) {
-        dta <- tibble::column_to_rownames(tibble::remove_rownames(dta))
+    r_status <- reactiveFileReader(1000, session, path_tv("tv_status"), function(file) tv:::tv_get_status())
+    observe({
+      status <- r_status()
+      if (!status) {
+        shiny::stopApp(quit(save = "no"))
       }
-
-      deferRender <- if (nrow(dta) > 1000) TRUE else FALSE
-
-      if (colnames(dta)[1] == "...start.up") {
-        dta <- NULL
-      }
-
-      DT::datatable(
-        dta,
-        filter = filter,
-        style = 'bootstrap',
-        selection = "none",
-        autoHideNavigation = TRUE,
-        rownames = TRUE,
-        extensions = c('KeyTable'),
-        options = list(
-          scrollY = scrollY,
-          scrollX = TRUE,
-          # deferRender = TRUE,
-          # scroller = list(
-          #   loadingIndicator = TRUE,
-          #   displayBuffer = 7,
-          #   boundaryScale = 0.5
-          # ),
-          # keys = TRUE,
-          dom = 'tp',
-          ordering = ordering
-        )
-      )
     })
 
-    }
+    observe({
+      inp <- input$turn_off
+      req(inp)
+      tv:::tv_set_status(FALSE) # tell main session (and tv session) tv is off
+    })
+
+    # if LAST session is closed, sligtly better than:
+    # https://stackoverflow.com/a/45590324/946850
+
+    # Source: https://gist.github.com/trestletech/9926129
+    # Increment the number of sessions when one is opened.
+    # We use isolate() here to:
+    #  a.) Provide a reactive context
+    #  b.) Ensure that this expression doesn't take a reactive dependency on
+    #      vals$count -- if it did, every time vals$count changed, this expression
+    #      would run, leading to an infinite loop.
+    isolate(r$session_count <- r$session_count + 1)
+    # When a session ends, decrement the counter.
+    session$onSessionEnded(function() {
+      if (isolate(r$session_count) < 2) {
+        tv:::tv_set_status(FALSE)
+        # app does not check status after this, so we need kill it here
+        shiny::stopApp(quit(save = "no"))
+      }
+      # We use isolate() here for the same reasons as above.
+      isolate(r$session_count <- r$session_count - 1)
+    })
+
+    # main display -------------------------------------------------------------
 
 
     output$oReactable <- reactable::renderReactable({
 
-      dta <- rObj()
+      dta <- r_data_frame()
 
       if ("rowname" %in% names(dta)) {
         dta <- tibble::column_to_rownames(tibble::remove_rownames(dta))
