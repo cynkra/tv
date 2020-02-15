@@ -11,9 +11,19 @@ library(shiny)
 library(reactable)
 library(shinyWidgets)
 
-
 miniPage(
-      tags$head(tags$style(".dataTable {white-space: nowrap;}")),
+      tags$head(
+        tags$style(".dataTable {white-space: nowrap;}"),
+        # make header one click selectable
+        tags$style("
+          .rt-th {
+            user-select: all;
+            -webkit-user-select: all;
+            -moz-user-select: all;
+            -ms-user-select: all;
+          }
+        ")
+      ),
       miniContentPanel(
           reactable::reactableOutput("oReactable"),
           # DT::dataTableOutput("oTable", height = "100%")
