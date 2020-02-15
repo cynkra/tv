@@ -16,7 +16,7 @@ miniPage(
         tags$style(".dataTable {white-space: nowrap;}"),
         # make header one click selectable
         tags$style("
-          .rt-th {
+          .rt-resizable-header-content {
             user-select: all;
             -webkit-user-select: all;
             -moz-user-select: all;
