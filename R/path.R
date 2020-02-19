@@ -1,7 +1,6 @@
 #' Show Exchange Path of TV
 #'
 #' The main R session uses this path to exchange information with the TV session.
-#' Exported for debugging.
 #'
 #' @keywords internal
 path <- function(...) {
