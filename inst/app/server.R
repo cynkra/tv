@@ -2,9 +2,9 @@ library(shiny)
 library(tv)
 library(reactable)
 
-tv:::tv_set_path(getShinyOption("tv_path"))
+tv:::set_path(getShinyOption("tv_path"))
 
-r_data_frame <- reactiveFileReader(50, NULL, filePath = tv:::tv_path("tv_update"), pull_obj)
+r_data_frame <- reactiveFileReader(50, NULL, filePath = tv::path("tv_update"), tv:::pull_obj)
 
 r <- reactiveValues(session_count = 0)
 
@@ -16,11 +16,11 @@ shinyServer(
     # stop app AND and terminate R session if status 0
 
     # status 0 can be triggered by:
-    # - from main session (by tv:::tv_set_status(FALSE))
+    # - from main session (by tv:::set_status(FALSE))
     # - turn off button
     # - last shiny session closed
 
-    r_status <- reactiveFileReader(1000, session, tv:::tv_path("tv_status"), function(file) tv:::tv_get_status())
+    r_status <- reactiveFileReader(1000, session, tv::path("tv_status"), function(file) tv::status())
     observe({
       status <- r_status()
       if (!status) {
@@ -31,7 +31,7 @@ shinyServer(
     observe({
       inp <- input$turn_off
       req(inp)
-      tv:::tv_set_status(FALSE) # tell main session (and tv session) tv is off
+      tv:::set_status(FALSE) # tell main session (and tv session) tv is off
     })
 
     # if LAST session is closed, sligtly better than:
@@ -48,7 +48,7 @@ shinyServer(
     # When a session ends, decrement the counter.
     session$onSessionEnded(function() {
       if (isolate(r$session_count) < 2) {
-        tv:::tv_set_status(FALSE)
+        tv:::set_status(FALSE)
         # app does not check status after this, so we need kill it here
         shiny::stopApp(quit(save = "no"))
       }
