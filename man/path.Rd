@@ -10,3 +10,4 @@ path(...)
 The main R session uses this path to exchange information with the TV session.
 Exported for debugging.
 }
+\keyword{internal}

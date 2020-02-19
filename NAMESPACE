@@ -3,7 +3,6 @@
 S3method(print_html,default)
 export(off)
 export(on)
-export(path)
 export(print_html)
 export(status)
 import(rlang)

@@ -3,7 +3,7 @@
 #' The main R session uses this path to exchange information with the TV session.
 #' Exported for debugging.
 #'
-#' @export
+#' @keywords internal
 path <- function(...) {
   tv_path <- .tv_env$tv_path
   file.path(tv_path, ...)
