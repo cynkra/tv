@@ -6,7 +6,7 @@ It modifies the print method of data frames, tibbles or data tables to also appe
 <img src="https://raw.githubusercontent.com/cynkra/tv/master/inst/screenshot/tv.png" width="65%"/>
 
 
-### Usage
+### Use
 
 Turn on the TV and watch for data frames in your R session:
 
@@ -22,6 +22,13 @@ TV is turned off:
 4. if `tempdir()` is deleted.
 
 Turning off will restore the print method of data frames.
+
+
+### Install
+
+```r
+remotes::install_github("cynkra/tv")
+```
 
 ### Ideas
 
