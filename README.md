@@ -3,7 +3,7 @@
 The tv package lively displays data frames during data analysis.
 It modifies the print method of data frames, tibbles or data tables to also appear in a browser or in the view pane of RStudio.
 
-<img src="https://raw.githubusercontent.com/christophsax/seasonal/master/inst/screenshot/tv.png" width="65%"/>
+<img src="https://raw.githubusercontent.com/cynkra/tv/master/inst/screenshot/tv.png" width="65%"/>
 
 
 ### Usage
