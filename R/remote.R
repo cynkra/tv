@@ -6,7 +6,11 @@ remote_tv <- function(path, port) {
 
 remote_tv_in_own_session <- function(path, port) {
 
-  .tv_env$cl <- parallel::makeCluster(1)
+  # setup_strategy = "sequential" adresses R Studio bug, should be fixed soon (June 2020)
+  # https://github.com/rstudio/rstudio/issues/6692#issuecomment-619645114
+  .tv_env$cl <- parallel::makeCluster(1, setup_strategy = "sequential")
+
+
   future::remote(remote_tv(path = path, port = port), workers = .tv_env$cl)
 
   Sys.sleep(0.5)
