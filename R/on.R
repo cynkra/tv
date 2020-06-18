@@ -34,10 +34,6 @@ on <- function(verbose = FALSE, port = NULL) {
   # register_s3_method("base", "print", "data.table", print_html)
   register_s3_method("base", "print", "tbl_df", print_html)
   register_s3_method("base", "print", "data.frame", print_html)
-  # register_s3_method("stats", "print", "ts", print_html)
-  # register_s3_method("xts", "print", "xts", print_html)
-  # register_s3_method("zoo", "print", "zoo", print_html)
-
 
   set_status(TRUE)  # tell both sessions tv is on
 
