@@ -1,2 +1,8 @@
 ^tv\.Rproj$
 ^\.Rproj\.user$
+^\.ccache$
+^\.github$
+^tic\.R$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

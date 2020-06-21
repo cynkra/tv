@@ -1,0 +1,30 @@
+url: https://github.com/cynkra/tv
+
+template:
+  package: cynkratemplate
+  default_assets: false
+
+destination: docs
+
+navbar:
+  structure:
+    left:  [reference, articles]
+    right: [projects, consulting, github]
+  components:
+    home: ~
+    reference:
+      icon: fa fa-file-alt
+      text: Reference
+      href: reference/index.html
+    projects:
+      text: Projects
+      href: https://www.cynkra.com/projects.html
+    consulting:
+      text: Consulting
+      href: https://www.cynkra.com/consulting.html
+
+authors:
+  Christoph Sax:
+    href: http://www.christophsax.com/
+  Kirill Müller:
+    href: http://krlmlr.info
