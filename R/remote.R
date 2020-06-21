@@ -1,7 +1,7 @@
 remote_tv <- function(path, port) {
   library(shiny)
   shiny::shinyOptions(tv_path = path)
-  runApp(system.file(package = "tv", "app"), port = port)
+  shiny::unApp(system.file(package = "tv", "app"), port = port)
 }
 
 remote_tv_in_own_session <- function(path, port) {
@@ -20,7 +20,7 @@ remote_tv_in_own_session <- function(path, port) {
   if (Sys.getenv("RSTUDIO") == "1") {
     rstudioapi::viewer(tv_url)
   } else {
-    browseURL(tv_url)
+    utils::browseURL(tv_url)
   }
 
 }
