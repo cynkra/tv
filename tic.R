@@ -1,5 +1,6 @@
 # installs dependencies, runs R CMD check, runs covr::codecov()
-do_package_checks()
+# FIXME: Set to error_on="note" when package is more mature
+do_package_checks(error_on = "error")
 
 if (ci_on_ghactions() && ci_has_env("BUILD_PKGDOWN")) {
   # creates pkgdown site and pushes to gh-pages branch
