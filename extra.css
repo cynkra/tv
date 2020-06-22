@@ -184,9 +184,9 @@ small,
 /* cynkra logo classes  ----------------------------------------------------- */
 
 .cynkra-logo {
-  font-size: 85% !important;
+  font-size: 65% !important;
   color: #1f65b7 !important;
-  padding-left: 2px !important;
+  padding-left: 2.5px !important;
   padding-top: 16px;
   padding-right: 15px;
   float: left;
@@ -244,7 +244,7 @@ footer {
   font-weight: 400;
   font-size: 17px;
   background-color: white;
-  -webkit-box-shadow: 0 3px 15px 0px rgba(0, 0, 0, 0.1);
+  /*-webkit-box-shadow: 0 3px 15px 0px rgba(0, 0, 0, 0.1) */
 }
 
 /* color pkg name in "cynkra blue" */
