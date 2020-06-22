@@ -8,8 +8,7 @@ destination: docs
 
 navbar:
   structure:
-    left:  [reference, articles]
-    right: [projects, consulting, github]
+    right: [reference, articles, projects, consulting, github]
   components:
     home: ~
     reference:
