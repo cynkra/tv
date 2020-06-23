@@ -12,14 +12,13 @@ navbar:
   components:
     home: ~
     reference:
-      icon: fa fa-file-alt
-      text: Reference
+      text: REFERENCE
       href: reference/index.html
     projects:
-      text: Projects
+      text: PROJECTS
       href: https://www.cynkra.com/projects.html
     consulting:
-      text: Consulting
+      text: CONSULTING
       href: https://www.cynkra.com/consulting.html
 
 authors:
