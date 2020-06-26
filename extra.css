@@ -262,6 +262,7 @@ nav[data-toggle="toc"] .nav > li > a {
   color: rgb(45, 50, 56);
   font-size: 85%;
   font-weight: 400;
+  letter-spacing: 0.8px;
 }
 
 .navbar-default .navbar-left  > li > a {
