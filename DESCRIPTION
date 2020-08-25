@@ -4,7 +4,7 @@ Version: 0.0-0
 Date: 2018-05-24
 Authors@R: 
     c(person(given = "Kirill",
-             family = "Müller",
+             family = "M\u00fcller",
              role = c("aut", "cre"),
              email = "krlmlr+r@mailbox.org",
              comment = c(ORCID = "0000-0002-1416-3412")),
@@ -16,8 +16,8 @@ Authors@R:
 Description: Overrides the print method for data frames and
     tibbles to provide a graphical output for rectangular data.
 License: GPL-3
-URL: https://github.com/krlmlr/tv, http://krlmlr.github.io/tv
-BugReports: https://github.com/krlmlr/tv/issues
+URL: https://github.com/cynkra/tv, http://cynkra.github.io/tv
+BugReports: https://github.com/cynkra/tv/issues
 Imports:
     fst,
     future,
