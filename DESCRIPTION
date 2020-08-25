@@ -16,7 +16,7 @@ Authors@R:
 Description: Overrides the print method for data frames and
     tibbles to provide a graphical output for rectangular data.
 License: GPL-3
-URL: https://github.com/cynkra/tv, https://tv.cynkra.com/
+URL: https://github.com/cynkra/tv, https://tv.cynkra.com
 BugReports: https://github.com/cynkra/tv/issues
 Imports:
     fst,
