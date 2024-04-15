@@ -1,6 +1,7 @@
 url: https://tv.cynkra.com
 template:
   package: cynkratemplate
+  bootstrap: 5
 destination: docs
 navbar:
   structure:
