@@ -2,17 +2,13 @@ Package: tv
 Title: Tibble View: Graphical Display For Data Frame Output
 Version: 0.0-0
 Date: 2018-05-24
-Authors@R: 
-    c(person(given = "Kirill",
-             family = "M\u00fcller",
-             role = c("aut", "cre"),
-             email = "krlmlr+r@mailbox.org",
-             comment = c(ORCID = "0000-0002-1416-3412")),
-      person(given = "Christoph",
-             family = "Sax",
-             role = "aut"),
-      person(given = "cynkra GmbH",
-             role = "fnd"))
+Authors@R: c(
+    person("Kirill", "Müller", , "krlmlr+r@mailbox.org", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-1416-3412")),
+    person("Christoph", "Sax", role = "aut"),
+    person("cynkra GmbH", role = "fnd",
+           comment = c(ROR = "0335t7e62"))
+  )
 Description: Overrides the print method for data frames and
     tibbles to provide a graphical output for rectangular data.
 License: GPL-3
@@ -31,5 +27,5 @@ Imports:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0.9000
+RoxygenNote: 7.3.2.9000
 Config/Needs/website: cynkra/cynkratemplate, cynkra/cynkratemplate
